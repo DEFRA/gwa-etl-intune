@@ -11,6 +11,7 @@ describe('extractIntuneData', () => {
   let request
   let acquireTokenMock
   const accessTokenValue = 'access-token'
+  const fetchError = 'Fetch error'
   let fetch
   let msal
   let handler
@@ -59,10 +60,10 @@ describe('extractIntuneData', () => {
   })
 
   test('handles fetch error', async () => {
-    fetch.mockRejectedValueOnce(new Error('Fetch error'))
+    fetch.mockRejectedValueOnce(new Error(fetchError))
 
-    await expect(handler(request, context)).rejects.toThrow('Fetch error')
-    expect(context.error).toHaveBeenCalledWith(new Error('Fetch error'))
+    await expect(handler(request, context)).rejects.toThrow(fetchError)
+    expect(context.error).toHaveBeenCalledWith(new Error(fetchError))
   })
 
   test('handles multiple devices', async () => {
@@ -146,12 +147,6 @@ describe('extractIntuneData', () => {
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
       { userId: 'user1', emailAddress: 'user1@example.com', phoneNumbers: [] }
     ])
-  })
-
-  test('handles fetch error', async () => {
-    fetch.mockRejectedValueOnce(new Error('Fetch error'))
-    await expect(handler(request, context)).rejects.toThrow('Fetch error')
-    expect(context.error).toHaveBeenCalledWith(new Error('Fetch error'))
   })
 
   test('successful data extraction with multiple devices', async () => {

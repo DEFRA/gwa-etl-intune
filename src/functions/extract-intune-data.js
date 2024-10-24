@@ -25,7 +25,41 @@ const blobOutput = output.storageBlob({
   path: `${storagePath}/${storageFileName}`
 })
 
-const handler = async (request, context) => {
+const processDevices = (devices, users) => {
+  let noEmailCount = 0
+  let noPhoneNumberCount = 0
+
+  devices.forEach(device => {
+    const emailAddress = device.emailAddress ? device.emailAddress.toLowerCase() : null
+    const phoneNumber = device.phoneNumber
+
+    if (!emailAddress) {
+      noEmailCount++
+    }
+
+    if (!phoneNumber) {
+      noPhoneNumberCount++
+    }
+
+    let user = users.find(u => u.userId === device.userId)
+    if (user) {
+      if (phoneNumber) {
+        user.phoneNumbers.push(phoneNumber)
+      }
+    } else {
+      user = {
+        userId: device.userId,
+        emailAddress,
+        phoneNumbers: phoneNumber ? [phoneNumber] : []
+      }
+      users.push(user)
+    }
+  })
+
+  return { noEmailCount, noPhoneNumberCount }
+}
+
+const handler = async (_request, context) => {
   try {
     const clientCredentialRequest = { scopes: ['https://graph.microsoft.com/.default'] }
     const authResult = await cca.acquireTokenByClientCredential(clientCredentialRequest)
@@ -37,8 +71,6 @@ const handler = async (request, context) => {
     let devices = []
     const users = []
     let hasNextPage = true
-    let noEmailCount = 0
-    let noPhoneNumberCount = 0
 
     while (hasNextPage) {
       const response = await fetch(url, {
@@ -50,42 +82,13 @@ const handler = async (request, context) => {
       })
 
       const data = await response.json()
-      devices = devices.concat(data.value.map(device => {
-        const emailAddress = device.emailAddress ? device.emailAddress.toLowerCase() : null
-        const phoneNumber = device.phoneNumber
-
-        if (!emailAddress) {
-          noEmailCount++
-        }
-
-        if (!phoneNumber) {
-          noPhoneNumberCount++
-        }
-
-        let user = users.find(u => u.userId === device.userId)
-        if (user) {
-          if (phoneNumber) {
-            user.phoneNumbers.push(phoneNumber)
-          }
-        } else {
-          user = {
-            userId: device.userId,
-            emailAddress,
-            phoneNumbers: phoneNumber ? [phoneNumber] : []
-          }
-          users.push(user)
-        }
-
-        return {
-          userId: device.userId,
-          emailAddress: emailAddress,
-          phoneNumbers: user.phoneNumbers
-        }
-      }))
+      devices = devices.concat(data.value)
 
       url = data['@odata.nextLink']
       hasNextPage = !!url
     }
+
+    const { noEmailCount, noPhoneNumberCount } = processDevices(devices, users)
 
     context.log(`Data extract from Intune is complete. ${devices.length} devices have been processed.`)
     context.log(`${users.length} devices have a UserEmailAddress of which ${noPhoneNumberCount} have no PhoneNumber.`)
