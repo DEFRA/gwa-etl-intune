@@ -78,9 +78,9 @@ describe('extractIntuneData', () => {
     expect(context.log).toHaveBeenCalledWith('3 devices have a UserEmailAddress of which 1 have no PhoneNumber.')
     expect(context.log).toHaveBeenCalledWith('1 devices with no UserEmailAddress.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
-      { userId: 'user1', emailAddress: 'user1@example.com', phoneNumbers: ['1234567890'] },
-      { userId: 'user2', emailAddress: 'user2@example.com', phoneNumbers: [] },
-      { userId: 'user3', emailAddress: null, phoneNumbers: ['0987654321'] }
+      { emailAddress: 'user1@example.com', phoneNumbers: ['1234567890'] },
+      { emailAddress: 'user2@example.com', phoneNumbers: [] },
+      { emailAddress: null, phoneNumbers: ['0987654321'] }
     ])
   })
 
@@ -99,7 +99,7 @@ describe('extractIntuneData', () => {
 
     expect(context.log).toHaveBeenCalledWith('Data extract from Intune is complete. 2 devices have been processed.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
-      { userId: 'user1', emailAddress: 'user1@example.com', phoneNumbers: ['1234567890', '0987654321'] }
+      { emailAddress: 'user1@example.com', phoneNumbers: ['1234567890', '0987654321'] }
     ])
   })
 
@@ -119,7 +119,7 @@ describe('extractIntuneData', () => {
     expect(context.log).toHaveBeenCalledWith('1 devices have a UserEmailAddress of which 0 have no PhoneNumber.')
     expect(context.log).toHaveBeenCalledWith('1 devices with no UserEmailAddress.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
-      { userId: 'user1', emailAddress: null, phoneNumbers: ['1234567890'] }
+      { emailAddress: null, phoneNumbers: ['1234567890'] }
     ])
   })
 
@@ -139,7 +139,7 @@ describe('extractIntuneData', () => {
     expect(context.log).toHaveBeenCalledWith('1 devices have a UserEmailAddress of which 1 have no PhoneNumber.')
     expect(context.log).toHaveBeenCalledWith('0 devices with no UserEmailAddress.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
-      { userId: 'user1', emailAddress: 'user1@example.com', phoneNumbers: [] }
+      { emailAddress: 'user1@example.com', phoneNumbers: [] }
     ])
   })
 
@@ -162,8 +162,8 @@ describe('extractIntuneData', () => {
 
     expect(context.log).toHaveBeenCalledWith('Data extract from Intune is complete. 2 devices have been processed.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(blobOutput, [
-      { userId: '1', emailAddress: 'user1@example.com', phoneNumbers: ['123'] },
-      { userId: '2', emailAddress: 'user2@example.com', phoneNumbers: ['456'] }
+      { emailAddress: 'user1@example.com', phoneNumbers: ['123'] },
+      { emailAddress: 'user2@example.com', phoneNumbers: ['456'] }
     ])
   })
 
@@ -189,8 +189,8 @@ describe('extractIntuneData', () => {
 
     expect(context.log).toHaveBeenCalledWith('Data extract from Intune is complete. 2 devices have been processed.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(blobOutput, [
-      { userId: '1', emailAddress: 'user1@example.com', phoneNumbers: ['123'] },
-      { userId: '2', emailAddress: 'user2@example.com', phoneNumbers: ['456'] }
+      { emailAddress: 'user1@example.com', phoneNumbers: ['123'] },
+      { emailAddress: 'user2@example.com', phoneNumbers: ['456'] }
     ])
   })
 

@@ -28,6 +28,7 @@ const blobOutput = output.storageBlob({
 const processDevices = (devices, users) => {
   let noEmailCount = 0
   let noPhoneNumberCount = 0
+  const userMap = new Map()
 
   devices.forEach(device => {
     const emailAddress = device.emailAddress ? device.emailAddress.toLowerCase() : null
@@ -41,20 +42,20 @@ const processDevices = (devices, users) => {
       noPhoneNumberCount++
     }
 
-    let user = users.find(u => u.userId === device.userId)
-    if (user) {
+    if (!userMap.has(device.userId)) {
+      userMap.set(device.userId, {
+        emailAddress,
+        phoneNumbers: phoneNumber ? [phoneNumber] : []
+      })
+    } else {
+      const user = userMap.get(device.userId)
       if (phoneNumber) {
         user.phoneNumbers.push(phoneNumber)
       }
-    } else {
-      user = {
-        userId: device.userId,
-        emailAddress,
-        phoneNumbers: phoneNumber ? [phoneNumber] : []
-      }
-      users.push(user)
     }
   })
+
+  users.push(...userMap.values())
 
   return { noEmailCount, noPhoneNumberCount }
 }
