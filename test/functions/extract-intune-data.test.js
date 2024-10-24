@@ -1,10 +1,4 @@
-// const fetch = require('node-fetch')
-// const msal = require('@azure/msal-node')
-// const { handler } = require('../../src/functions/extract-intune-data')
 const testEnvVars = require('../test-env-vars')
-
-jest.mock('@azure/msal-node')
-jest.mock('node-fetch')
 
 describe('extractIntuneData', () => {
   let context
