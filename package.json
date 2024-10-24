@@ -1,0 +1,45 @@
+{
+  "name": "gwa-etl-intune",
+  "version": "1.0.0",
+  "author": "Defra",
+  "contributors": [
+    "Steve Dickinson <steve.dickinson@defra.gov.uk>"
+  ],
+  "description": "Azure Function app for GWA Intune ETL",
+  "dependencies": {
+    "@azure/functions": "^4.0.0",
+    "@azure/msal-node": "^2.15.0",
+    "node-fetch": "2.7.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.0",
+    "jest": "^27.0.4",
+    "standard": "^16.0.3",
+    "jest-fetch-mock": "3.0.3"
+  },
+  "homepage": "https://github.com/DEFRA/gwa-etl-intune",
+  "license": "OGL-UK-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DEFRA/gwa-etl-intune.git"
+  },
+  "scripts": {
+    "lint": "standard",
+    "start": "func start",
+    "test": "jest",
+    "test:watch": "jest --coverage=false --onlyChanged --watch"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "beforeEach",
+      "expect",
+      "test",
+      "afterEach",
+      "jest",
+      "beforeAll",
+      "afterAll"
+    ]
+  },
+  "main": "src/functions/*.js"
+}
