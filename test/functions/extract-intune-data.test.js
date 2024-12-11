@@ -75,7 +75,7 @@ describe('extractIntuneData', () => {
     await handler(request, context)
 
     expect(context.log).toHaveBeenCalledWith('Data extract from Intune is complete. 3 devices have been processed.')
-    expect(context.log).toHaveBeenCalledWith('3 devices have a UserEmailAddress of which 1 have no PhoneNumber.')
+    expect(context.log).toHaveBeenCalledWith('There are 3 unique users.')
     expect(context.log).toHaveBeenCalledWith('1 devices with no UserEmailAddress.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
       { emailAddress: 'user1@example.com', phoneNumbers: ['1234567890'] },
@@ -116,7 +116,7 @@ describe('extractIntuneData', () => {
     await handler(request, context)
 
     expect(context.log).toHaveBeenCalledWith('Data extract from Intune is complete. 1 devices have been processed.')
-    expect(context.log).toHaveBeenCalledWith('1 devices have a UserEmailAddress of which 0 have no PhoneNumber.')
+    expect(context.log).toHaveBeenCalledWith('There are 1 unique users.')
     expect(context.log).toHaveBeenCalledWith('1 devices with no UserEmailAddress.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
       { emailAddress: null, phoneNumbers: ['1234567890'] }
@@ -136,7 +136,7 @@ describe('extractIntuneData', () => {
     await handler(request, context)
 
     expect(context.log).toHaveBeenCalledWith('Data extract from Intune is complete. 1 devices have been processed.')
-    expect(context.log).toHaveBeenCalledWith('1 devices have a UserEmailAddress of which 1 have no PhoneNumber.')
+    expect(context.log).toHaveBeenCalledWith('There are 1 unique users.')
     expect(context.log).toHaveBeenCalledWith('0 devices with no UserEmailAddress.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
       { emailAddress: 'user1@example.com', phoneNumbers: [] }
