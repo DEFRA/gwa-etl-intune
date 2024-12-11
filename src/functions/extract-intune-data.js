@@ -104,8 +104,7 @@ const handler = async (_request, context) => {
 }
 
 app.timer('extractIntuneData', {
-  // schedule: '0 0 8 * * 0',
-  schedule: '*/10  * * * *',
+  schedule: '0 0 8 * * 0',
   extraOutputs: [blobOutput],
   handler
 })
