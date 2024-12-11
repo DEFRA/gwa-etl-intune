@@ -92,7 +92,8 @@ const handler = async (_request, context) => {
     const { noEmailCount, noPhoneNumberCount } = processDevices(devices, users)
 
     context.log(`Data extract from Intune is complete. ${devices.length} devices have been processed.`)
-    context.log(`${users.length} devices have a UserEmailAddress of which ${noPhoneNumberCount} have no PhoneNumber.`)
+    context.log(`There are ${users.length} unique users.`)
+    context.log(`${noPhoneNumberCount} devices have no PhoneNumber.`)
     context.log(`${noEmailCount} devices with no UserEmailAddress.`)
 
     context.extraOutputs.set(blobOutput, users)
@@ -103,7 +104,8 @@ const handler = async (_request, context) => {
 }
 
 app.timer('extractIntuneData', {
-  schedule: '0 0 8 * * 0',
+  // schedule: '0 0 8 * * 0',
+  schedule: '*/10  * * * *',
   extraOutputs: [blobOutput],
   handler
 })
