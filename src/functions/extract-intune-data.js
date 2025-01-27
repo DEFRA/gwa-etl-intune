@@ -3,9 +3,9 @@ const fetch = require('node-fetch')
 const msal = require('@azure/msal-node')
 
 const {
-  AAD_CLIENT_ID: clientId,
-  AAD_CLIENT_SECRET: clientSecret,
-  AAD_TENANT_ID: tenantId,
+  INTUNE_AAD_CLIENT_ID: clientId,
+  INTUNE_AAD_CLIENT_SECRET: clientSecret,
+  INTUNE_AAD_TENANT_ID: tenantId,
   DATA_EXTRACT_CONTAINER: storagePath,
   DATA_EXTRACT_FILE_NAME: storageFileName
 } = process.env
@@ -104,7 +104,8 @@ const handler = async (_request, context) => {
 }
 
 app.timer('extractIntuneData', {
-  schedule: '0 0 8 * * 0',
+  // schedule: '0 0 8 * * 0',
+  schedule: '*/10 * * * *',
   extraOutputs: [blobOutput],
   handler
 })

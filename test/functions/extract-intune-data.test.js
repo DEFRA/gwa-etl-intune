@@ -46,9 +46,9 @@ describe('extractIntuneData', () => {
     expect(msal.ConfidentialClientApplication).toHaveBeenCalledTimes(1)
     expect(msal.ConfidentialClientApplication).toHaveBeenCalledWith({
       auth: {
-        authority: `https://login.microsoftonline.com/${testEnvVars.AAD_TENANT_ID}`,
-        clientId: testEnvVars.AAD_CLIENT_ID,
-        clientSecret: testEnvVars.AAD_CLIENT_SECRET
+        authority: `https://login.microsoftonline.com/${testEnvVars.INTUNE_AAD_TENANT_ID}`,
+        clientId: testEnvVars.INTUNE_AAD_CLIENT_ID,
+        clientSecret: testEnvVars.INTUNE_AAD_CLIENT_SECRET
       }
     })
   })
