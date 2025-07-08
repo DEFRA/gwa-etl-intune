@@ -25,6 +25,13 @@ const blobOutput = output.storageBlob({
   path: `${storagePath}/${storageFileName}`
 })
 
+const isUkMobileNumber = (phoneNumber) => {
+  if (!phoneNumber) return false
+
+  const cleaned = phoneNumber.replace(/[\s\-()]/g, '')
+  return /^(\+44|0)7\d{9}$/.test(cleaned)
+}
+
 const processDevices = (devices, users) => {
   let noEmailCount = 0
   let noPhoneNumberCount = 0
@@ -32,7 +39,7 @@ const processDevices = (devices, users) => {
 
   devices.forEach(device => {
     const emailAddress = device.emailAddress ? device.emailAddress.toLowerCase() : null
-    const phoneNumber = device.phoneNumber
+    const phoneNumber = isUkMobileNumber(device.phoneNumber) ? device.phoneNumber : null
 
     if (!emailAddress) {
       noEmailCount++
