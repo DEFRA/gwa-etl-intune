@@ -26,7 +26,9 @@ const blobOutput = output.storageBlob({
 })
 
 const isUkMobileNumber = (phoneNumber) => {
-  if (!phoneNumber) return false
+  if (!phoneNumber) {
+    return false
+  }
 
   const cleaned = phoneNumber.replace(/[\s\-()]/g, '')
   return /^(\+44|0)7\d{9}$/.test(cleaned)
