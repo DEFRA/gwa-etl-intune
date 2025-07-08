@@ -231,7 +231,7 @@ describe('extractIntuneData', () => {
       { emailAddress: 'user2@example.com', phoneNumbers: ['+447912345678'] },
       { emailAddress: 'user3@example.com', phoneNumbers: [] },
       { emailAddress: 'user4@example.com', phoneNumbers: [] },
-      { emailAddress: 'user5@example.com', phoneNumbers: ['07987654321'] }, 
+      { emailAddress: 'user5@example.com', phoneNumbers: ['07987654321'] },
       { emailAddress: null, phoneNumbers: ['07123456789'] },
       { emailAddress: 'user7@example.com', phoneNumbers: [] }
     ])
