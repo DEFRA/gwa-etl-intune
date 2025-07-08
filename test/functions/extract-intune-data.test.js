@@ -217,7 +217,8 @@ describe('extractIntuneData', () => {
           { userId: 'user3', deviceName: 'device3', emailAddress: 'user3@example.com', phoneNumber: '02079460000' }, // not a mobile
           { userId: 'user4', deviceName: 'device4', emailAddress: 'user4@example.com', phoneNumber: null }, // no number
           { userId: 'user5', deviceName: 'device5', emailAddress: 'user5@example.com', phoneNumber: '07987654321' }, // valid UK mobile
-          { userId: 'user6', deviceName: 'device6', emailAddress: null, phoneNumber: '07123456789' } // no email, valid mobile
+          { userId: 'user6', deviceName: 'device6', emailAddress: null, phoneNumber: '07123456789' }, // no email, valid mobile
+          { userId: 'user7', deviceName: 'device7', emailAddress: 'user7@example.com', phoneNumber: '00000000000' } // not a mobile
         ],
         '@odata.nextLink': null
       })
@@ -230,8 +231,9 @@ describe('extractIntuneData', () => {
       { emailAddress: 'user2@example.com', phoneNumbers: ['+447912345678'] },
       { emailAddress: 'user3@example.com', phoneNumbers: [] },
       { emailAddress: 'user4@example.com', phoneNumbers: [] },
-      { emailAddress: 'user5@example.com', phoneNumbers: ['07987654321'] },
-      { emailAddress: null, phoneNumbers: ['07123456789'] }
+      { emailAddress: 'user5@example.com', phoneNumbers: ['07987654321'] }, 
+      { emailAddress: null, phoneNumbers: ['07123456789'] },
+      { emailAddress: 'user7@example.com', phoneNumbers: [] }
     ])
   })
 })
