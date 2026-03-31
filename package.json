@@ -13,9 +13,9 @@
   },
   "devDependencies": {
     "@types/jest": "^27.0.0",
-    "jest": "^27.0.4",
-    "standard": "^16.0.3",
-    "jest-fetch-mock": "3.0.3"
+    "jest": "^30.3.0",
+    "jest-fetch-mock": "3.0.3",
+    "standard": "^16.0.3"
   },
   "homepage": "https://github.com/DEFRA/gwa-etl-intune",
   "license": "OGL-UK-3.0",

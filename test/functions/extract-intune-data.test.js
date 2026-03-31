@@ -64,9 +64,9 @@ describe('extractIntuneData', () => {
     fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValueOnce({
         value: [
-          { userId: 'user1', deviceName: 'device1', emailAddress: 'user1@example.com', phoneNumber: '07123456789' },
+          { userId: 'user1', deviceName: 'device1', emailAddress: 'user1@example.com', phoneNumber: '+447123456789' },
           { userId: 'user2', deviceName: 'device2', emailAddress: 'user2@example.com', phoneNumber: null },
-          { userId: 'user3', deviceName: 'device3', emailAddress: null, phoneNumber: '07123456780' }
+          { userId: 'user3', deviceName: 'device3', emailAddress: null, phoneNumber: '+447123456780' }
         ],
         '@odata.nextLink': null
       })
@@ -78,9 +78,9 @@ describe('extractIntuneData', () => {
     expect(context.log).toHaveBeenCalledWith('There are 3 unique users.')
     expect(context.log).toHaveBeenCalledWith('1 devices with no UserEmailAddress.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
-      { emailAddress: 'user1@example.com', phoneNumbers: ['07123456789'] },
+      { emailAddress: 'user1@example.com', phoneNumbers: ['+447123456789'] },
       { emailAddress: 'user2@example.com', phoneNumbers: [] },
-      { emailAddress: null, phoneNumbers: ['07123456780'] }
+      { emailAddress: null, phoneNumbers: ['+447123456780'] }
     ])
   })
 
@@ -88,8 +88,8 @@ describe('extractIntuneData', () => {
     fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValueOnce({
         value: [
-          { userId: 'user1', deviceName: 'device1', emailAddress: 'user1@example.com', phoneNumber: '07123456789' },
-          { userId: 'user1', deviceName: 'device2', emailAddress: 'user1@example.com', phoneNumber: '07123456780' }
+          { userId: 'user1', deviceName: 'device1', emailAddress: 'user1@example.com', phoneNumber: '+447123456789' },
+          { userId: 'user1', deviceName: 'device2', emailAddress: 'user1@example.com', phoneNumber: '+447123456780' }
         ],
         '@odata.nextLink': null
       })
@@ -99,7 +99,7 @@ describe('extractIntuneData', () => {
 
     expect(context.log).toHaveBeenCalledWith('Data extract from Intune is complete. 2 devices have been processed.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
-      { emailAddress: 'user1@example.com', phoneNumbers: ['07123456789', '07123456780'] }
+      { emailAddress: 'user1@example.com', phoneNumbers: ['+447123456789', '+447123456780'] }
     ])
   })
 
@@ -107,7 +107,7 @@ describe('extractIntuneData', () => {
     fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValueOnce({
         value: [
-          { userId: 'user1', deviceName: 'device1', emailAddress: null, phoneNumber: '07123456789' }
+          { userId: 'user1', deviceName: 'device1', emailAddress: null, phoneNumber: '+447123456789' }
         ],
         '@odata.nextLink': null
       })
@@ -119,7 +119,7 @@ describe('extractIntuneData', () => {
     expect(context.log).toHaveBeenCalledWith('There are 1 unique users.')
     expect(context.log).toHaveBeenCalledWith('1 devices with no UserEmailAddress.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
-      { emailAddress: null, phoneNumbers: ['07123456789'] }
+      { emailAddress: null, phoneNumbers: ['+447123456789'] }
     ])
   })
 
@@ -147,8 +147,8 @@ describe('extractIntuneData', () => {
     fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValueOnce({
         value: [
-          { userId: '1', deviceName: 'Device1', emailAddress: 'user1@example.com', phoneNumber: '07123456789' },
-          { userId: '2', deviceName: 'Device2', emailAddress: 'user2@example.com', phoneNumber: '07123456780' }
+          { userId: '1', deviceName: 'Device1', emailAddress: 'user1@example.com', phoneNumber: '+447123456789' },
+          { userId: '2', deviceName: 'Device2', emailAddress: 'user2@example.com', phoneNumber: '+447123456780' }
         ]
       })
     })
@@ -162,8 +162,8 @@ describe('extractIntuneData', () => {
 
     expect(context.log).toHaveBeenCalledWith('Data extract from Intune is complete. 2 devices have been processed.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(blobOutput, [
-      { emailAddress: 'user1@example.com', phoneNumbers: ['07123456789'] },
-      { emailAddress: 'user2@example.com', phoneNumbers: ['07123456780'] }
+      { emailAddress: 'user1@example.com', phoneNumbers: ['+447123456789'] },
+      { emailAddress: 'user2@example.com', phoneNumbers: ['+447123456780'] }
     ])
   })
 
@@ -171,7 +171,7 @@ describe('extractIntuneData', () => {
     fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValueOnce({
         value: [
-          { userId: '1', deviceName: 'Device1', emailAddress: 'user1@example.com', phoneNumber: '07123456789' }
+          { userId: '1', deviceName: 'Device1', emailAddress: 'user1@example.com', phoneNumber: '+447123456789' }
         ],
         '@odata.nextLink': 'nextPageLink'
       })
@@ -179,7 +179,7 @@ describe('extractIntuneData', () => {
       .mockResolvedValueOnce({
         json: jest.fn().mockResolvedValueOnce({
           value: [
-            { userId: '2', deviceName: 'Device2', emailAddress: 'user2@example.com', phoneNumber: '07123456780' }
+            { userId: '2', deviceName: 'Device2', emailAddress: 'user2@example.com', phoneNumber: '+447123456780' }
           ],
           '@odata.nextLink': null
         })
@@ -189,8 +189,8 @@ describe('extractIntuneData', () => {
 
     expect(context.log).toHaveBeenCalledWith('Data extract from Intune is complete. 2 devices have been processed.')
     expect(context.extraOutputs.set).toHaveBeenCalledWith(blobOutput, [
-      { emailAddress: 'user1@example.com', phoneNumbers: ['07123456789'] },
-      { emailAddress: 'user2@example.com', phoneNumbers: ['07123456780'] }
+      { emailAddress: 'user1@example.com', phoneNumbers: ['+447123456789'] },
+      { emailAddress: 'user2@example.com', phoneNumbers: ['+447123456780'] }
     ])
   })
 
@@ -208,16 +208,16 @@ describe('extractIntuneData', () => {
     expect(context.extraOutputs.set).toHaveBeenCalledWith(blobOutput, [])
   })
 
-  test('only valid UK mobile numbers are included in phoneNumbers', async () => {
+  test('only valid UK mobile numbers with country code are included', async () => {
     fetch.mockResolvedValueOnce({
       json: jest.fn().mockResolvedValueOnce({
         value: [
-          { userId: 'user1', deviceName: 'device1', emailAddress: 'user1@example.com', phoneNumber: '07123456789' }, // valid UK mobile
+          { userId: 'user1', deviceName: 'device1', emailAddress: 'user1@example.com', phoneNumber: '+447123456789' }, // valid UK mobile
           { userId: 'user2', deviceName: 'device2', emailAddress: 'user2@example.com', phoneNumber: '+447912345678' }, // valid UK mobile
           { userId: 'user3', deviceName: 'device3', emailAddress: 'user3@example.com', phoneNumber: '02079460000' }, // not a mobile
           { userId: 'user4', deviceName: 'device4', emailAddress: 'user4@example.com', phoneNumber: null }, // no number
-          { userId: 'user5', deviceName: 'device5', emailAddress: 'user5@example.com', phoneNumber: '07987654321' }, // valid UK mobile
-          { userId: 'user6', deviceName: 'device6', emailAddress: null, phoneNumber: '07123456789' }, // no email, valid mobile
+          { userId: 'user5', deviceName: 'device5', emailAddress: 'user5@example.com', phoneNumber: '07987654321' }, // valid UK mobile but no country code
+          { userId: 'user6', deviceName: 'device6', emailAddress: null, phoneNumber: '+447123456789' }, // no email, valid mobile
           { userId: 'user7', deviceName: 'device7', emailAddress: 'user7@example.com', phoneNumber: '00000000000' } // not a mobile
         ],
         '@odata.nextLink': null
@@ -227,12 +227,12 @@ describe('extractIntuneData', () => {
     await handler(request, context)
 
     expect(context.extraOutputs.set).toHaveBeenCalledWith(expect.anything(), [
-      { emailAddress: 'user1@example.com', phoneNumbers: ['07123456789'] },
+      { emailAddress: 'user1@example.com', phoneNumbers: ['+447123456789'] },
       { emailAddress: 'user2@example.com', phoneNumbers: ['+447912345678'] },
       { emailAddress: 'user3@example.com', phoneNumbers: [] },
       { emailAddress: 'user4@example.com', phoneNumbers: [] },
-      { emailAddress: 'user5@example.com', phoneNumbers: ['07987654321'] },
-      { emailAddress: null, phoneNumbers: ['07123456789'] },
+      { emailAddress: 'user5@example.com', phoneNumbers: [] },
+      { emailAddress: null, phoneNumbers: ['+447123456789'] },
       { emailAddress: 'user7@example.com', phoneNumbers: [] }
     ])
   })

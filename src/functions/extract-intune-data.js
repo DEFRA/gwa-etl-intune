@@ -30,8 +30,8 @@ const isUkMobileNumber = (phoneNumber) => {
     return false
   }
 
-  const cleaned = phoneNumber.replace(/[\s\-()]/g, '')
-  return /^(\+44|0)7\d{9}$/.test(cleaned)
+  const cleaned = phoneNumber.replaceAll(/[\s\-()]/g, '')
+  return /^\+447[1-9]\d{8}$/.test(cleaned)
 }
 
 const processDevices = (devices, users) => {
