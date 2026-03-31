@@ -51,16 +51,15 @@ const processDevices = (devices, users) => {
       noPhoneNumberCount++
     }
 
-    if (!userMap.has(device.userId)) {
-      userMap.set(device.userId, {
-        emailAddress,
-        phoneNumbers: phoneNumber ? [phoneNumber] : []
-      })
-    } else {
-      const user = userMap.get(device.userId)
-      if (phoneNumber) {
-        user.phoneNumbers.push(phoneNumber)
-      }
+    let user = userMap.get(device.userId)
+
+    if (!user) {
+      user = { emailAddress, phoneNumbers: [] }
+      userMap.set(device.userId, user)
+    }
+
+    if (phoneNumber) {
+      user.phoneNumbers.push(phoneNumber)
     }
   })
 
